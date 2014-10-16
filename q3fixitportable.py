@@ -9,74 +9,74 @@ class MapCheckerUI(QtGui.QDialog, q3fixit_ui.Ui_Q3Fixit):
     def __init__(self):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
-    #     layout = QtGui.QGridLayout()
-    #     widget = QtGui.QDesktopWidget()
-    #     screen = widget.primaryScreen()
-    #     rect = widget.screenGeometry(screen)
-    #     height = rect.height()
-    #     width = rect.width()
-    #     print(str(height) + "x" + str(width))
-    #     self.label = QtGui.QLabel("Hello World!")
-    #     line_edit = QtGui.QLineEdit()
-    #     button = QtGui.QPushButton("Close")
-    #
-    #     layout.addWidget(self.label, 0, 0)
-    #     layout.addWidget(line_edit, 0, 1)
-    #     layout.addWidget(button, 1, 1)
-    #
-    #     self.setLayout(layout)
-    #
-    #     button.clicked.connect(self.close)
-    #     line_edit.textChanged.connect(self.changeTextLabel)
-    #
-    # def changeTextLabel(self, text):
-    #     self.label.setText(text)
+        self.FolderText.setReadOnly(True)
+        self.BrowseBtn.clicked.connect(self.BrowseQ3Folder)
+        self.MapCheckerBtn.clicked.connect(self.CheckMaps)
+        self.setFocus()
+        #self.Q3Path = ""
+
+    def CheckMaps(self):
+        currentdir = os.getcwd()
+        mapChecker = MapChecker(self.listView)
+        mapChecker.CheckMaps(currentdir, self.Q3Path)
+
+    def BrowseQ3Folder(self):
+        q3File = QtGui.QFileDialog.getOpenFileName(self, caption="Select Quake3.exe", directory=".",
+                                                filter="Exe Files (quake3.exe)")
+        print(q3File)
+        self.Q3Path = os.path.dirname(q3File)
+        print(self.Q3Path)
+        self.FolderText.setText(QtCore.QDir.toNativeSeparators(q3File))
 
 
 # **** Mapchecker ****
 class MapChecker:
-    def __init__(self):
+    def __init__(self, listView):
+        print("Hello")
+        self.listView = listView
 
-        def CheckMaps(self):
-            currentdir = os.getcwd()
-            print(currentdir)
-            configDir = os.path.join(currentdir, "Quake3")
-            mapsFilename = os.path.join(configDir, "maps.txt")
-            mapsDir = os.path.join(currentdir, "maps")
-            q3Folder = configDir # For testing purposes
-            # **** Read maps.txt ****
-            mapFile = io.open(mapsFilename, 'r', encoding='utf-8-sig')
-            content = mapFile.readlines()
-            #print(lines)
-            mapFile.close()
+    def CheckMaps(self, currentdir, q3Folder):
+        #currentdir = os.getcwd()
+        print(currentdir)
+        configDir = os.path.join(currentdir, "Quake3")
+        mapsFilename = os.path.join(configDir, "maps.txt")
+        mapsDir = os.path.join(currentdir, "maps")
+        #q3Folder = configDir # For testing purposes
+        # **** Read maps.txt ****
+        mapFile = io.open(mapsFilename, 'r', encoding='utf-8-sig')
+        content = mapFile.readlines()
+        #print(lines)
+        mapFile.close()
 
-            # mapFile = codecs.open(mapsFilename, encoding='utf-8')
-            # content = mapFile.readlines()
-            # mapFile.close()
+        # mapFile = codecs.open(mapsFilename, encoding='utf-8')
+        # content = mapFile.readlines()
+        # mapFile.close()
+        # Check if each file exists or not
+        for line in content:
+            s = line.strip()
+            split = s.split(',')
+            folder = os.path.join(q3Folder, split[0].strip())
+            fileName = split[1].strip()
+            fullPath = os.path.normpath(os.path.join(folder, fileName))
+            copyFileName = os.path.normpath(os.path.join(mapsDir, fileName))
+            copyFile = True
+            if os.path.exists(fullPath):
+                fileInfo = os.stat(fullPath)
+                oldSize = fileInfo.st_size
+                newSize = os.stat(copyFileName).st_size
+                if (oldSize == newSize):
+                    copyFile = False
+                    self.listView.addItem(QtGui.QListWidgetItem("File: " + fileName + " already exist in folder: " + folder))
+                    print("File: " + fileName + " already exist in folder: " + folder)
 
-            # Check if each file exists or not
-            for line in content:
-                s = line.strip()
-                split = s.split(',')
-                folder = os.path.join(q3Folder, split[0].strip())
-                fileName = split[1].strip()
-                fullPath = os.path.normpath(os.path.join(folder, fileName))
-                copyFileName = os.path.normpath(os.path.join(mapsDir, fileName))
-                copyFile = True
-                if os.path.exists(fullPath):
-                    fileInfo = os.stat(fullPath)
-                    oldSize = fileInfo.st_size
-                    newSize = os.stat(copyFileName).st_size
-                    if (oldSize == newSize):
-                        copyFile = False
-                        print("File: " + fileName + " already exist in folder: " + folder)
+            if copyFile:
+                if os.path.exists(copyFileName):
+                    shutil.copyfile(copyFileName, fullPath)
+                    print("Copied file: " + fileName + " to " + folder)
+                    self.listView.addItem(QtGui.QListWidgetItem("Copied file: " + fileName + " to " + folder))
+                else:
+                    self.listView.addItem(QtGui.QListWidgetItem("Source file doesn't exist: " + fileName))
 
-                if copyFile:
-                    if os.path.exists(copyFileName):
-                        shutil.copyfile(copyFileName, fullPath)
-                        print("Copied file: " + fileName + " to " + folder)
-                    else:
-                        print("Source file doesn't exist: " + fileName)
 # **********************
 
 
