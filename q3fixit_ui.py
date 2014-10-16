@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Q3FixitMapchecker.ui'
 #
-# Created: Thu Oct 16 16:07:34 2014
+# Created: Thu Oct 16 22:31:38 2014
 #      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,13 +26,13 @@ except AttributeError:
 class Ui_Q3Fixit(object):
     def setupUi(self, Q3Fixit):
         Q3Fixit.setObjectName(_fromUtf8("Q3Fixit"))
-        Q3Fixit.resize(349, 456)
+        Q3Fixit.resize(836, 456)
         Q3Fixit.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.gridLayout_2 = QtGui.QGridLayout(Q3Fixit)
         self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
         self.gridLayout = QtGui.QGridLayout()
-        self.gridLayout.setSpacing(5)
         self.gridLayout.setMargin(5)
+        self.gridLayout.setSpacing(5)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.label = QtGui.QLabel(Q3Fixit)
         font = QtGui.QFont()
@@ -58,7 +58,6 @@ class Ui_Q3Fixit(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.MapCheckerBtn.sizePolicy().hasHeightForWidth())
         self.MapCheckerBtn.setSizePolicy(sizePolicy)
-        self.MapCheckerBtn.setMaximumSize(QtCore.QSize(100, 30))
         self.MapCheckerBtn.setLayoutDirection(QtCore.Qt.RightToLeft)
         self.MapCheckerBtn.setFlat(False)
         self.MapCheckerBtn.setObjectName(_fromUtf8("MapCheckerBtn"))
