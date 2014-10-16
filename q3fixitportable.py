@@ -2,7 +2,8 @@ import os
 import shutil
 import io
 import sys
-from PyQt4 import QtGui, QtCore
+from PyQt4 import QtGui
+from PyQt4 import QtCore
 import q3fixit_ui
 
 class MapCheckerUI(QtGui.QDialog, q3fixit_ui.Ui_Q3Fixit):
@@ -47,6 +48,7 @@ class MapChecker:
         content = mapFile.readlines()
         #print(lines)
         mapFile.close()
+        model = QtGui.QStandardItemModel(self.listView)
 
         # mapFile = codecs.open(mapsFilename, encoding='utf-8')
         # content = mapFile.readlines()
@@ -60,23 +62,27 @@ class MapChecker:
             fullPath = os.path.normpath(os.path.join(folder, fileName))
             copyFileName = os.path.normpath(os.path.join(mapsDir, fileName))
             copyFile = True
+            item = QtGui.QStandardItem()
             if os.path.exists(fullPath):
                 fileInfo = os.stat(fullPath)
                 oldSize = fileInfo.st_size
                 newSize = os.stat(copyFileName).st_size
                 if (oldSize == newSize):
                     copyFile = False
-                    self.listView.addItem(QtGui.QListWidgetItem("File: " + fileName + " already exist in folder: " + folder))
+                    item.setText("File: " + fileName + " already exist in folder: " + folder)
                     print("File: " + fileName + " already exist in folder: " + folder)
 
             if copyFile:
                 if os.path.exists(copyFileName):
                     shutil.copyfile(copyFileName, fullPath)
                     print("Copied file: " + fileName + " to " + folder)
-                    self.listView.addItem(QtGui.QListWidgetItem("Copied file: " + fileName + " to " + folder))
+                    item.setText("Copied file: " + fileName + " to " + folder)
                 else:
-                    self.listView.addItem(QtGui.QListWidgetItem("Source file doesn't exist: " + fileName))
+                    item.setText("Source file doesn't exist: " + fileName)
 
+            model.appendRow(item)
+
+        self.listView.setModel(model)
 # **********************
 
 
