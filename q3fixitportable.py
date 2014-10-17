@@ -18,7 +18,7 @@ class MapCheckerUI(QtGui.QDialog, q3fixit_ui.Ui_Q3Fixit):
 
     def CheckMaps(self):
         currentdir = os.getcwd()
-        mapChecker = MapChecker(self.listView, self.MapCheckerBtn)
+        mapChecker = MapChecker(self.listView, self.MapCheckerBtn, self.simulateChk.isChecked())
         mapChecker.CheckMaps(currentdir, self.Q3Path)
 
     def BrowseQ3Folder(self):
@@ -32,10 +32,11 @@ class MapCheckerUI(QtGui.QDialog, q3fixit_ui.Ui_Q3Fixit):
 
 # **** Mapchecker ****
 class MapChecker:
-    def __init__(self, listView, runButton):
+    def __init__(self, listView, runButton, simulate):
         print("Hello")
         self.listView = listView
         self.runButton = runButton
+        self.simulate = simulate
 
     def CheckMaps(self, currentdir, q3Folder):
         #currentdir = os.getcwd()
@@ -72,19 +73,25 @@ class MapChecker:
                 if (oldSize == newSize):
                     copyFile = False
                     item.setBackground(QtGui.QColor(0,255,0))
-                    item.setText("File: " + fileName + " already exist in folder: " + folder)
+                    item.setText("Fil: " + fileName + " finns redan i katalog: " + folder)
                     #print("File: " + fileName + " already exist in folder: " + folder)
 
             if copyFile:
                 if os.path.exists(copyFileName):
-                    shutil.copyfile(copyFileName, fullPath)
-                    #print("Copied file: " + fileName + " to " + folder)
-                    item.setBackground(QtGui.QColor(0,255,0))
-                    item.setText("Copied file: " + fileName + " to " + folder)
+                    if self.simulate:
+                        item.setBackground(QtGui.QColor(255,0,0))
+                        item.setForeground(QtGui.QColor(255,255,255))
+                        item.setText("Fil saknas: " + fileName + " i " + folder)
+                        errors = errors + 1
+                    else:
+                        shutil.copyfile(copyFileName, fullPath)
+                        #print("Copied file: " + fileName + " to " + folder)
+                        item.setBackground(QtGui.QColor(0,255,0))
+                        item.setText("Kopierat " + fileName + " till " + folder)
                 else:
                     item.setBackground(QtGui.QColor(255,0,0))
                     item.setForeground(QtGui.QColor(255,255,255))
-                    item.setText("Source file doesn't exist: " + fileName)
+                    item.setText("Källfil saknas: " + fileName)
                     errors = errors + 1
 
             model.appendRow(item)

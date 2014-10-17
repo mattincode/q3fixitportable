@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Q3FixitMapchecker.ui'
 #
-# Created: Thu Oct 16 22:31:38 2014
+# Created: Fri Oct 17 12:30:09 2014
 #      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -30,6 +30,16 @@ class Ui_Q3Fixit(object):
         Q3Fixit.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.gridLayout_2 = QtGui.QGridLayout(Q3Fixit)
         self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
+        self.MapCheckerBtn = QtGui.QPushButton(Q3Fixit)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(1)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.MapCheckerBtn.sizePolicy().hasHeightForWidth())
+        self.MapCheckerBtn.setSizePolicy(sizePolicy)
+        self.MapCheckerBtn.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.MapCheckerBtn.setFlat(False)
+        self.MapCheckerBtn.setObjectName(_fromUtf8("MapCheckerBtn"))
+        self.gridLayout_2.addWidget(self.MapCheckerBtn, 2, 0, 1, 1)
         self.gridLayout = QtGui.QGridLayout()
         self.gridLayout.setMargin(5)
         self.gridLayout.setSpacing(5)
@@ -52,24 +62,18 @@ class Ui_Q3Fixit(object):
         self.listView.setObjectName(_fromUtf8("listView"))
         self.gridLayout.addWidget(self.listView, 2, 0, 1, 2)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
-        self.MapCheckerBtn = QtGui.QPushButton(Q3Fixit)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(1)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.MapCheckerBtn.sizePolicy().hasHeightForWidth())
-        self.MapCheckerBtn.setSizePolicy(sizePolicy)
-        self.MapCheckerBtn.setLayoutDirection(QtCore.Qt.RightToLeft)
-        self.MapCheckerBtn.setFlat(False)
-        self.MapCheckerBtn.setObjectName(_fromUtf8("MapCheckerBtn"))
-        self.gridLayout_2.addWidget(self.MapCheckerBtn, 1, 0, 1, 1)
+        self.simulateChk = QtGui.QCheckBox(Q3Fixit)
+        self.simulateChk.setObjectName(_fromUtf8("simulateChk"))
+        self.gridLayout_2.addWidget(self.simulateChk, 1, 0, 1, 1)
 
         self.retranslateUi(Q3Fixit)
         QtCore.QMetaObject.connectSlotsByName(Q3Fixit)
 
     def retranslateUi(self, Q3Fixit):
         Q3Fixit.setWindowTitle(_translate("Q3Fixit", "Q3Fixit", None))
+        self.MapCheckerBtn.setText(_translate("Q3Fixit", "Kör mapchecker!", None))
         self.label.setText(_translate("Q3Fixit", "Mapchecker", None))
         self.FolderText.setPlaceholderText(_translate("Q3Fixit", "Välj quake3.exe", None))
         self.BrowseBtn.setText(_translate("Q3Fixit", "Bläddra", None))
-        self.MapCheckerBtn.setText(_translate("Q3Fixit", "Kör mapchecker!", None))
+        self.simulateChk.setText(_translate("Q3Fixit", "Kontrollera bara (ingen kopiering sker)", None))
 
