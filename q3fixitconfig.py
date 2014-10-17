@@ -78,7 +78,7 @@ class ConfigUI(QtGui.QDialog, q3fixitconfig_ui.Ui_Q3FixitConfig):
             with open(configFilename, 'w', newline='') as outf:
                 outf.writelines(data)
 
-            self.RunBtn.setStyleSheet("background-color: green")
+            self.RunBtn.setStyleSheet("background-color: green; color: white")
             self.RunBtn.setText("Klar!")
             self.RunBtn.clicked.connect(self.close)
 

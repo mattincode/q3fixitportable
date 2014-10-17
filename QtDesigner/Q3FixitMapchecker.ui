@@ -17,6 +17,25 @@
    <enum>Qt::LeftToRight</enum>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
+   <item row="2" column="0">
+    <widget class="QPushButton" name="MapCheckerBtn">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>1</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text">
+      <string>Kör mapchecker!</string>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
      <property name="margin">
@@ -59,21 +78,9 @@
     </layout>
    </item>
    <item row="1" column="0">
-    <widget class="QPushButton" name="MapCheckerBtn">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-       <horstretch>1</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="layoutDirection">
-      <enum>Qt::RightToLeft</enum>
-     </property>
+    <widget class="QCheckBox" name="simulateChk">
      <property name="text">
-      <string>Kör mapchecker!</string>
-     </property>
-     <property name="flat">
-      <bool>false</bool>
+      <string>Kontrollera bara (ingen kopiering sker)</string>
      </property>
     </widget>
    </item>

@@ -1,0 +1,3 @@
+baseq3,geit3ctf1.pk3
+baseq3,q3wpak3.pk3
+baseq3,q3wpak3.pk3

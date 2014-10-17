@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c650215d-b4bd-46fe-a6aa-87e1228ea09a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Quake3/q3config.cfg" afterPath="$PROJECT_DIR$/Quake3/q3config.cfg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/QtDesigner/Q3FixitMapchecker.ui" afterPath="$PROJECT_DIR$/QtDesigner/Q3FixitMapchecker.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Quake3/maps.txt" afterPath="$PROJECT_DIR$/Quake3/maps.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Quake3/missionpack/q3config.cfg" afterPath="$PROJECT_DIR$/Quake3/missionpack/q3config.cfg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/q3fixitconfig.py" afterPath="$PROJECT_DIR$/q3fixitconfig.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/q3fixitportable.py" afterPath="$PROJECT_DIR$/q3fixitportable.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="q3fixitportable.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,11 +30,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="q3fixitconfig.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="q3fixitportable.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/q3fixitportable.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0787321" vertical-offset="756" max-vertical-offset="2346">
+              <caret line="49" column="21" selection-start-line="49" selection-start-column="21" selection-end-line="49" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="q3fixitconfig.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/q3fixitconfig.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24539877" vertical-offset="797" max-vertical-offset="2295">
-              <caret line="61" column="64" selection-start-line="61" selection-start-column="64" selection-end-line="61" selection-end-column="64" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="797" max-vertical-offset="2295">
+              <caret line="72" column="39" selection-start-line="72" selection-start-column="39" selection-end-line="72" selection-end-column="39" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -597,20 +612,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/q3fixitportable.py">
+    <entry file="file://$PROJECT_DIR$/q3fixitconfig.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.06952965" vertical-offset="306" max-vertical-offset="2125">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="797" max-vertical-offset="2295">
+          <caret line="72" column="39" selection-start-line="72" selection-start-column="39" selection-end-line="72" selection-end-column="39" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/q3fixitconfig.py">
+    <entry file="file://$PROJECT_DIR$/q3fixitportable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24539877" vertical-offset="797" max-vertical-offset="2295">
-          <caret line="61" column="64" selection-start-line="61" selection-start-column="64" selection-end-line="61" selection-end-column="64" />
+        <state vertical-scroll-proportion="0.0787321" vertical-offset="756" max-vertical-offset="2346">
+          <caret line="49" column="21" selection-start-line="49" selection-start-column="21" selection-end-line="49" selection-end-column="21" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>

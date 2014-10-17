@@ -18,7 +18,7 @@ class MapCheckerUI(QtGui.QDialog, q3fixit_ui.Ui_Q3Fixit):
 
     def CheckMaps(self):
         currentdir = os.getcwd()
-        mapChecker = MapChecker(self.listView)
+        mapChecker = MapChecker(self.listView, self.MapCheckerBtn)
         mapChecker.CheckMaps(currentdir, self.Q3Path)
 
     def BrowseQ3Folder(self):
@@ -32,9 +32,10 @@ class MapCheckerUI(QtGui.QDialog, q3fixit_ui.Ui_Q3Fixit):
 
 # **** Mapchecker ****
 class MapChecker:
-    def __init__(self, listView):
+    def __init__(self, listView, runButton):
         print("Hello")
         self.listView = listView
+        self.runButton = runButton
 
     def CheckMaps(self, currentdir, q3Folder):
         #currentdir = os.getcwd()
@@ -49,6 +50,7 @@ class MapChecker:
         #print(lines)
         mapFile.close()
         model = QtGui.QStandardItemModel(self.listView)
+        errors = 0
 
         # mapFile = codecs.open(mapsFilename, encoding='utf-8')
         # content = mapFile.readlines()
@@ -69,20 +71,31 @@ class MapChecker:
                 newSize = os.stat(copyFileName).st_size
                 if (oldSize == newSize):
                     copyFile = False
+                    item.setBackground(QtGui.QColor(0,255,0))
                     item.setText("File: " + fileName + " already exist in folder: " + folder)
-                    print("File: " + fileName + " already exist in folder: " + folder)
+                    #print("File: " + fileName + " already exist in folder: " + folder)
 
             if copyFile:
                 if os.path.exists(copyFileName):
                     shutil.copyfile(copyFileName, fullPath)
-                    print("Copied file: " + fileName + " to " + folder)
+                    #print("Copied file: " + fileName + " to " + folder)
+                    item.setBackground(QtGui.QColor(0,255,0))
                     item.setText("Copied file: " + fileName + " to " + folder)
                 else:
+                    item.setBackground(QtGui.QColor(255,0,0))
+                    item.setForeground(QtGui.QColor(255,255,255))
                     item.setText("Source file doesn't exist: " + fileName)
+                    errors = errors + 1
 
             model.appendRow(item)
 
         self.listView.setModel(model)
+        if errors == 0:
+            self.runButton.setText("Klar!")
+            self.runButton.setStyleSheet("background-color: green; color: white")
+        else:
+            self.runButton.setText("Försök igen!")
+
 # **********************
 
 
