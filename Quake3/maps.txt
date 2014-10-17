@@ -1,4 +1,12 @@
-﻿missionpack,pak1.pk3
-baseq3,pak2.pk3
-baseq3,pak3.pk3
-missionpack,sbpure_ta.pk3
+baseq3,geit3ctf1.pk3
+baseq3,q3wpak3.pk3
+baseq3,q3wpak2.pk3
+baseq3,hydrogen.pk3
+baseq3,map-q3rctf.pk3
+baseq3,mapel4.pk3
+baseq3,q3wpak4.pk3
+baseq3,x3map_v1_final.pk3
+baseq3,q3wpak0.pk3
+missionpack,qxctf1_ta.pk3
+missionpack,erta1b.pk3
+baseq3,ct3ctf2sb.pk3

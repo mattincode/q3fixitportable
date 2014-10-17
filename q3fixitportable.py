@@ -12,14 +12,28 @@ class MapCheckerUI(QtGui.QDialog, q3fixit_ui.Ui_Q3Fixit):
         self.setupUi(self)
         self.FolderText.setReadOnly(True)
         self.BrowseBtn.clicked.connect(self.BrowseQ3Folder)
+        self.listView.setStyleSheet("background-color: lightgrey")
         self.MapCheckerBtn.clicked.connect(self.CheckMaps)
         self.setFocus()
         #self.Q3Path = ""
 
     def CheckMaps(self):
+        self.listView.setStyleSheet("background-color: green")
         currentdir = os.getcwd()
+        self.listView.setStyleSheet("background-color: yellow")
         mapChecker = MapChecker(self.listView, self.MapCheckerBtn, self.simulateChk.isChecked())
-        mapChecker.CheckMaps(currentdir, self.Q3Path)
+        self.listView.setStyleSheet("background-color: blue")
+        try:
+            mapChecker.CheckMaps(currentdir, self.Q3Path)
+            self.listView.setStyleSheet("background-color: white")
+        except:
+            model = QtGui.QStandardItemModel(self.listView)
+            item = QtGui.QStandardItem()
+            item.setBackground(QtGui.QColor(255,0,0))
+            item.setForeground(QtGui.QColor(255,255,255))
+            item.setText("Bad stuff happened!" + str(sys.exc_info()))
+            model.appendRow(item)
+            self.listView.setModel(model)
 
     def BrowseQ3Folder(self):
         q3File = QtGui.QFileDialog.getOpenFileName(self, caption="Select Quake3.exe", directory=".",
@@ -39,19 +53,76 @@ class MapChecker:
         self.simulate = simulate
 
     def CheckMaps(self, currentdir, q3Folder):
+        self.listView.setStyleSheet("background-color: grey")
+        model = QtGui.QStandardItemModel(self.listView)
+        if not os.path.exists(currentdir):
+            item = QtGui.QStandardItem()
+            item.setBackground(QtGui.QColor(255,0,0))
+            item.setForeground(QtGui.QColor(255,255,255))
+            item.setText("Aktuell katalog: " + currentdir + " saknas!")
+            model.appendRow(item)
+            self.listView.setModel(model)
+            return
+        self.listView.setStyleSheet("background-color: orange")
         #currentdir = os.getcwd()
-        print(currentdir)
+        #print(currentdir)
         configDir = os.path.join(currentdir, "Quake3")
+        if not os.path.exists(configDir):
+            item = QtGui.QStandardItem()
+            item.setBackground(QtGui.QColor(255,0,0))
+            item.setForeground(QtGui.QColor(255,255,255))
+            item.setText("q3folder: " + q3Folder + " saknas!")
+            model.appendRow(item)
+            self.listView.setModel(model)
+            return
+        self.listView.setStyleSheet("background-color: purple")
         mapsFilename = os.path.join(configDir, "maps.txt")
+        if not os.path.exists(mapsFilename):
+            item = QtGui.QStandardItem()
+            item.setBackground(QtGui.QColor(255,0,0))
+            item.setForeground(QtGui.QColor(255,255,255))
+            item.setText("Map-file: " + mapsFilename + " saknas!")
+            model.appendRow(item)
+            self.listView.setModel(model)
+            return
+        self.listView.setStyleSheet("background-color: olive")
         mapsDir = os.path.join(currentdir, "maps")
+        if not os.path.exists(mapsDir):
+            item = QtGui.QStandardItem()
+            item.setBackground(QtGui.QColor(255,0,0))
+            item.setForeground(QtGui.QColor(255,255,255))
+            item.setText("Map-katalogen: " + mapsDir + " saknas!")
+            model.appendRow(item)
+            self.listView.setModel(model)
+            return
+        self.listView.setStyleSheet("background-color: teal")
         #q3Folder = configDir # For testing purposes
         # **** Read maps.txt ****
-        mapFile = io.open(mapsFilename, 'r', encoding='utf-8-sig')
-        content = mapFile.readlines()
-        #print(lines)
-        mapFile.close()
-        model = QtGui.QStandardItemModel(self.listView)
         errors = 0
+        try:
+            mapFile = io.open(mapsFilename, 'r', encoding='utf-8-sig')
+            content = mapFile.readlines()
+        except FileNotFoundError:
+            item = QtGui.QStandardItem()
+            item.setBackground(QtGui.QColor(255,0,0))
+            item.setForeground(QtGui.QColor(255,255,255))
+            item.setText("Could not find file:" + mapsFilename)
+            model.appendRow(item)
+            self.listView.setModel(model)
+            errors = 1
+        except:
+            item = QtGui.QStandardItem()
+            item.setBackground(QtGui.QColor(255,0,0))
+            item.setForeground(QtGui.QColor(255,255,255))
+            item.setText("Bad stuff happened!" + str(sys.exc_info()))
+            model.appendRow(item)
+            self.listView.setModel(model)
+            errors = 1
+        finally:
+            mapFile.close()
+
+        if errors > 0:
+            return
 
         # mapFile = codecs.open(mapsFilename, encoding='utf-8')
         # content = mapFile.readlines()
@@ -66,15 +137,26 @@ class MapChecker:
             copyFileName = os.path.normpath(os.path.join(mapsDir, fileName))
             copyFile = True
             item = QtGui.QStandardItem()
-            if os.path.exists(fullPath):
+            if os.path.exists(fullPath) and os.path.exists(copyFileName):
                 fileInfo = os.stat(fullPath)
                 oldSize = fileInfo.st_size
                 newSize = os.stat(copyFileName).st_size
                 if (oldSize == newSize):
                     copyFile = False
                     item.setBackground(QtGui.QColor(0,255,0))
-                    item.setText("Fil: " + fileName + " finns redan i katalog: " + folder)
+                    item.setText("Fil: " + fileName + " finns redan på plats i katalog: " + folder)
                     #print("File: " + fileName + " already exist in folder: " + folder)
+            else:
+                copyFile = False
+                errors = 1
+                if not os.path.exists(fullPath):
+                    item.setBackground(QtGui.QColor(255,0,0))
+                    item.setForeground(QtGui.QColor(255,255,255))
+                    item.setText("Fil: " + fullPath + " saknas!")
+                else:
+                    item.setBackground(QtGui.QColor(255,0,0))
+                    item.setForeground(QtGui.QColor(255,255,255))
+                    item.setText("Fil: " + copyFileName + " saknas!")
 
             if copyFile:
                 if os.path.exists(copyFileName):
