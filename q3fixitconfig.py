@@ -1,6 +1,5 @@
 import os
 import shutil
-import io
 import sys
 from PyQt4 import QtGui
 from PyQt4 import QtCore
@@ -74,12 +73,18 @@ class ConfigUI(QtGui.QDialog, q3fixitconfig_ui.Ui_Q3FixitConfig):
                 self.SetValue(data, "seta com_maxfps", "125")
                 self.SetValue(data, "seta cl_maxpackets", "125")
 
+            # Backup old config file
+            try:
+                shutil.copyfile(configFilename, configFilename + "_bakConfig")
+            except:
+                pass
+
             # Write config
             with open(configFilename, 'w', newline='') as outf:
                 outf.writelines(data)
 
             self.RunBtn.setStyleSheet("background-color: green; color: white")
-            self.RunBtn.setText("Klar!")
+            self.RunBtn.setText("Klar (backup med namn _bakConfig skapad)!")
             self.RunBtn.clicked.connect(self.close)
 
     def SetValue(self, data, key, value):
