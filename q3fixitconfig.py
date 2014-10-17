@@ -43,10 +43,44 @@ class ConfigUI(QtGui.QDialog, q3fixitconfig_ui.Ui_Q3FixitConfig):
                 selectedModelName = str(self.ModelCombo.currentText())
                 player = self.find(lambda model: model.Name == selectedModelName, self.Players)
                 self.SetValue(data, "seta name", player.Name)
+                self.SetValue(data, "seta team_headmodel", player.Model)
+                self.SetValue(data, "seta team_model", player.Model)
+                self.SetValue(data, "seta headmodel", player.Model)
+                self.SetValue(data, "seta mode", player.Model)
+
+            if self.ResolutionChk.isChecked():
+                widget = QtGui.QDesktopWidget()
+                screen = widget.primaryScreen()
+                rect = widget.screenGeometry(screen)
+                height = rect.height()
+                width = rect.width()
+                self.SetValue(data, "seta r_customheight", str(height))
+                self.SetValue(data, "seta r_customwidth", str(width))
+                self.SetValue(data, "seta r_mode", "-1")
+
+            if self.BrightnessChk.isChecked():
+                self.SetValue(data, "seta r_ignorehwgamma", "1")
+                self.SetValue(data, "seta r_overBrightBits", "1")
+                self.SetValue(data, "seta r_gamma", "2.000000")
+
+            if self.LanChk.isChecked():
+                self.SetValue(data, "seta rate", "10000")
+
+            if self.MemoryChk.isChecked():
+                self.SetValue(data, "seta com_zoneMegs", "24")
+                self.SetValue(data, "seta com_hunkMegs", "512")
+
+            if self.FPSChk.isChecked():
+                self.SetValue(data, "seta com_maxfps", "125")
+                self.SetValue(data, "seta cl_maxpackets", "125")
 
             # Write config
             with open(configFilename, 'w', newline='') as outf:
                 outf.writelines(data)
+
+            self.RunBtn.setStyleSheet("background-color: green")
+            self.RunBtn.setText("Klar!")
+            self.RunBtn.clicked.connect(self.close)
 
     def SetValue(self, data, key, value):
         foundRowIndex = 0
