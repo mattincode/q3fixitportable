@@ -9,8 +9,8 @@ if sys.platform == 'win32':
 build_options = {"includes" : [ "re", "atexit"], "packages": ["PyQt4.QtCore", "PyQt4.QtGui"]}
 #build_options = {"packages": ["os"], "excludes": ["tkinter"]}
 
-setup(  name = "Q3 Mapchecker",
+setup(  name = "Q3 Config util",
         version = "0.1",
-        description = "Q3 fixit mapchecker",
+        description = "Q3 config util",
         options = {"build_exe" : build_options},
-        executables = [Executable("q3fixitportable.py", base=base)])
+        executables = [Executable("q3fixitconfig.py", base=base)])
