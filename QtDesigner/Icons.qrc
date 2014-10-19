@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="icon">
+    <file alias="icon">q3f.ico</file>
+  </qresource>
+</RCC>

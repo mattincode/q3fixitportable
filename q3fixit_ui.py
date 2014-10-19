@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Q3FixitMapchecker.ui'
 #
-# Created: Fri Oct 17 12:30:09 2014
+# Created: Sun Oct 19 15:43:42 2014
 #      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,6 +27,8 @@ class Ui_Q3Fixit(object):
     def setupUi(self, Q3Fixit):
         Q3Fixit.setObjectName(_fromUtf8("Q3Fixit"))
         Q3Fixit.resize(836, 456)
+        icon = QtGui.QIcon('q3f.png')
+        Q3Fixit.setWindowIcon(icon)
         Q3Fixit.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.gridLayout_2 = QtGui.QGridLayout(Q3Fixit)
         self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
