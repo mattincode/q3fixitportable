@@ -6,7 +6,7 @@ base = None
 if sys.platform == 'win32':
     base = 'Win32GUI'
 
-build_options = {"includes" : [ "re", "atexit"], "packages": ["PyQt4.QtCore", "PyQt4.QtGui"]}
+build_options = {"include_msvcr":True, "includes" : [ "re", "atexit"], "packages": ["PyQt4.QtCore", "PyQt4.QtGui"]}
 #build_options = {"packages": ["os"], "excludes": ["tkinter"]}
 
 setup(  name = "Q3 Config util",
