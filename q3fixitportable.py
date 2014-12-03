@@ -147,16 +147,16 @@ class MapChecker:
                     item.setText("Fil: " + fileName + " finns redan på plats i katalog: " + folder)
                     #print("File: " + fileName + " already exist in folder: " + folder)
             else:
-                copyFile = False
                 errors = 1
-                if not os.path.exists(fullPath):
+                if not os.path.exists(copyFileName):
                     item.setBackground(QtGui.QColor(255,0,0))
                     item.setForeground(QtGui.QColor(255,255,255))
-                    item.setText("Fil: " + fullPath + " saknas!")
+                    item.setText("Källfil(USB): " + copyFileName + " saknas!")
+                    copyFile = False
                 else:
                     item.setBackground(QtGui.QColor(255,0,0))
                     item.setForeground(QtGui.QColor(255,255,255))
-                    item.setText("Fil: " + copyFileName + " saknas!")
+                    item.setText("Målfil: " + fullPath + " saknas!")
 
             if copyFile:
                 if os.path.exists(copyFileName):
